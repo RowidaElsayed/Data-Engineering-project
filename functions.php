@@ -26,23 +26,6 @@ echo <<<EOT
 		<link href="style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	</head>
-	<body>
-        <header>
-            <div class="content-wrapper">
-                <h1>Shopping Cart System</h1>
-                <nav>
-                    <a href="index.php">Home</a>
-                    <a href="index.php?page=products">Products</a>
-                </nav>
-                <div class="link-icons">
-                    <a href="index.php?page=cart">
-						<i class="fas fa-shopping-cart"></i>
-                        <span>$num_items_in_cart</span>
-
-					</a>
-                </div>
-            </div>
-        </header>
         <main>
 EOT;
 }
@@ -53,7 +36,7 @@ echo <<<EOT
         </main>
         <footer>
             <div class="content-wrapper">
-                <p>&copy; $year, Shopping Cart System</p>
+                <p>&copy; $year, RONO</p>
             </div>
         </footer>
     </body>

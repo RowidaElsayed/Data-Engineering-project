@@ -1,7 +1,20 @@
 <?php
 include 'db.php';
+
+// Start the session
+// Check if the user is logged in
+
+if (isset($_SESSION["user_id"])) {
+    // Retrieve user data from the session
+    $user_id = $_SESSION["user_id"];
+} else {
+    // Redirect the user to the login page if they are not logged in
+    header('Location: index.html');
+}
+// Include functions and connect to the database using PDO MySQL
+$pdo = pdo_connect_mysql();
 // Get the 4 most recently added products
-$stmt = $pdo->prepare('SELECT * FROM products ORDER BY date_added DESC LIMIT 4');
+$stmt = $pdo->prepare('SELECT * FROM products ORDER BY pid DESC LIMIT 6');
 $stmt->execute();
 $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -62,7 +75,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <ul class="menu">
     
                     <li>
-                        <a href="Home Page HTML.html" class="active">
+                        <a href="index.php" class="active">
                             
                             Home
     
@@ -79,16 +92,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     
                     </li>
-    
-                    <li>
-    
-                        <a href="#popular-bundle-pack">
-                            
-                            Packages
-                        
-                        </a>
-                    
-                    </li>
+
     
                     <li>
                         
@@ -142,6 +146,12 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             Login
                         
                         </a>
+                    <li>
+                    <li>
+                        <a href="logout.php">
+                            Logout
+                        
+                        </a>
                     
                     </li>
     
@@ -150,20 +160,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <!--right-nav-(cart-like)-->
                 <div class="right-nav">
     
-                    <!--like----->
-                    <a href="Wishlist HTML.html" class="like">
-                       
-                        <img src=" https://static.thenounproject.com/png/194932-200.png" style="width:30px;height:30px;">
-                        <i class="fas fa-heart"></i>
-              
-                        <span>
-                            
-                            2
-                        
-                        </span>
-    
-                    </a>
-    
+                    
                     <!--cart----->
                     <a href="index.php?page=cart" class="cart">
     
@@ -178,18 +175,6 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
                     </a>
     
-                    <!--cart----->
-                    <a href="Profile HTML.html" class="user-profile">
-    
-                        <i class="fas fa-user"></i>
-                         <img src="data:image/png;base64,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" style="width:30px;height:30px;">
-                         <span>
-    
-                            1
-    
-                        </span>
-    
-                    </a>
     
                 </div>
     
@@ -326,31 +311,31 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!--category-end----------------------------------->
             <!--==Products====================================-->
             <section id="popular-product">
-                <!--heading----------->
-                <div class="product-heading">
-                    <h3>Popular Product</h3>
-                    <span>All</span>
-                </div>
-                <!--box-container------>
-                <div class="product-container">
-                    <!--box---------->
-                    <div class="product-container">
-                    <?php foreach ($recently_added_products as $product): ?>
-                        <div class="product-box">
-                            <a href="index.php?page=product&id=<?=$product['id']?>" class="product">
-                            <img src="imgs/<?=$product['img']?>" alt="<?=$product['name']?>">
-                <span class="name"><?=$product['name']?></span>
-                <span class="price">
-                    L.E;<?=$product['Price']?>
-                    <?php if ($product['rrp'] > 0): ?>
-                        <span class="rrp">L.E;<?=$product['rrp']?></span>
-                    <?php endif; ?>
-                </span>
-            </a>
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+            <!-- Heading -->
+            <div class="product-heading">
+                <h3>Explore Popular Products</h3>
+                <span>View All</span>
+            </div>
+            <!-- Product Container -->
+            <div class="product-container">
+                <!-- Product Boxes -->
+                <?php foreach ($recently_added_products as $product): ?>
+                    <div class="product-box">
+                        <a href="index.php?page=product&pid=<?=$product['pid']?>" class="product-link">
+                            <img src="imgs/<?=$product['img']?>" alt="<?=$product['name']?>" class="product-image">
+                            <span class="product-name"><?=$product['name']?></span>
+                            <span class="product-price">
+                                L.E <?=$product['price']?>
+                                <?php if ($product['discount'] > 0): ?>
+                                    <span class="discount-price">L.E <?=$product['discount']?></span>
+                                <?php endif; ?>
+                            </span>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
+
 
                 </div>
             </section>
@@ -470,7 +455,6 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <strong>Product</strong>
                     <ul>
                         <li><a href="#">Grocery</a></li>
-                        <li><a href="#">Packages</a></li>
                         <li><a href="#">Popular</a></li>
                         <li><a href="#">New</a></li>
                     </ul>

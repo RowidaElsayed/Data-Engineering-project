@@ -2,7 +2,7 @@
 $servername = "localhost";
 $email = "root";
 $password = "";
-$dbname = "groceryw_shop";
+$dbname = "groceryw_project";
 
 // Create connection
 $conn = new mysqli($servername, $email, $password, $dbname);

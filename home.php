@@ -210,7 +210,13 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <input type="text" class="search-input" placeholder="Search" name="search" size = "80px" required>
     
                         <!--btn------->
-                        <input type="submit" class="search-btn" value="Search">
+                         <form class="d-flex" action="search_product.php">
+
+                        <input class="form-control me-2" type="search"placeholder="Search" aria-label="Search" name="search_data">
+
+                        <input type="submit" value="Search" class="search-btn" name="search_data_product">
+
+       
     
                     </form>
     

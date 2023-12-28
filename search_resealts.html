@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    
+        <head>
+    
+        <meta charset="utf-8">
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!--==Title==================================-->
+        <title>
+    
+            RONO Grocery Store
+    
+        </title>
+    
+        <!--==Stylesheet=============================-->
+        <link rel="stylesheet" type="text/css" href="Home Page CSS.css">
+    
+        <!--==Fav-icon===============================-->
+        <link rel="shortcut icon" href="images/fav-icon.png"/>
+    
+        <!--==Using-Font-Awesome=====================-->
+        <script src="https://kit.fontawesome.com/5471644867.js" crossorigin="anonymous"></script>
+    
+        <script src = 'Home Page JS.js' defer></script>
+            
+       <link rel="shortcut icon" type="image/jpg" href="C:\Users\hp\Desktop\College\First Semester\Introduction To Web Technologies\Notepad ++ Files\Project\favicon.ico"/>
+    
+        </head>
+
+<body>
+       
+    
+            <!--==Navigation================================-->
+            <nav class="navigation">
+    
+                <!--logo-------->
+                <a href="#" class="logo">
+    
+                    <span>RO</span>NO
+    
+                </a>
+    
+                <!--menu-btn---->
+                <input type="checkbox" class="menu-btn" id="menu-btn">
+    
+                <label for="menu-btn" class="menu-icon">
+    
+                    <span class="nav-icon"></span>
+    
+                </label>
+    
+                <!--menu-------->
+                <ul class="menu">
+    
+                    <li>
+                        <a href="index.php" class="active">
+                            
+                            Home
+    
+                        </a>
+                    
+                    </li>
+    
+                    <li>
+    
+                        <a href="#category">
+    
+                            Categories
+                        
+                        </a>
+                    
+                    </li>
+
+    
+                    <li>
+                    
+                    </li>
+    
+                    <li>
+                        
+                        <a href="signup.html">
+                                
+                            Sign&nbsp;up
+                            
+                        </a>
+                        
+                    </li>
+    
+                    
+                    <li>
+                        
+                        <a href="index.html">
+                            
+                            Login
+                        
+                        </a>
+                    <li>
+                    <li>
+                        <a href="logout.php">
+                            Logout
+                        
+                        </a>
+                    
+                    </li>
+    
+                    </ul>
+    
+                <!--right-nav-(cart-like)-->
+                <div class="right-nav">
+    
+                    
+                    <!--cart----->
+                    <a href="index.php?page=cart" class="cart">
+    
+                        <i class="fas fa-shopping-cart"></i>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" style="width:30px;height:30px;">
+    
+                        <span>
+                            
+                            2
+                        
+                        </span>
+    
+                    </a>
+    
+    
+                </div>
+    
+            </nav>
+    
+            <!--nav-end--------------------->
+            <!--==Search-banner=======================================-->
+            <section id="search-banner">
+    
+                <!--bg--------->
+                <img alt="bg" class="bg-1" src="v.png">
+    
+                <img alt="bg" class="bg-1_rev" src="v.png" >
+    
+    
+                <!--text------->
+                <div class="search-banner-text">
+    
+                    <h1>
+                        
+                        Order Your Groceries,All you need
+                    
+                    </h1>
+    
+    
+                    <!--search-box------>
+                    <form action="" class="search-box">
+    
+                        <!--icon------>
+                        <i class="fas fa-search"></i>
+    
+                        <!--input----->
+                        <input type="text" class="search-input" placeholder="Search" name="search" size = "80px" required>
+    
+                        <!--btn------->
+                        <input type="submit" class="search-btn" value="Search">
+    
+                    </form>
+    
+                    <br>
+    
+                    <h3>
+    
+                        <a href = 'Best Deals HTML.html' style = 'color: #40aa54'>
+    
+                            Click here to learn about today's best deals
+    
+                        </a>
+    
+                    </h3>
+    
+                </div>
+    
+            </section>
+    
+            <!--search-banner-end--------------->
+
+    <div class="header"></div>
+
+    <div class="container">
+        <div class="filter-column">
+            <!-- Filter checkboxes  -->
+            <h1>Search Results</h1>
+            <div id="search-results"></div>
+
+
+                    <h1>Category</h1>
+                    <input type="checkbox" id="Category1" name="Category1" value="Category1">
+                    <label for="brand1">Fruits & Vegtables</label><br>
+                    <input type="checkbox" id="Category2" name="Category2" value="Category2">
+                    <label for="brand2">Chicken</label><br>
+                    <input type="checkbox" id="Category3" name="Category3" value="Category3">
+                    <label for="brand3">Meat</label><br>
+                    <input type="checkbox" id="Category4" name="Category4" value="Category4">
+                    <label for="brand2">Fish</label><br>
+                    <input type="checkbox" id="brand3" name="Category5" value="Category5">
+                    <label for="brand3">Cheese</label><br>
+
+
+
+                    <!--search-box------>
+                    <form action="" class="search-box">
+
+                        <!--icon------>
+                        <i class="fas fa-search"></i>
+
+                        <!--input----->
+                        <input type="text" class="search-input" placeholder="Search Brand" name="search brand"
+                            size="20px" required>
+
+                        <!--btn------->
+                        <input type="submit" class="search-btn" value="Search">
+
+                        <div id="filter">
+                            <h2>Brand</h2>
+                            <input type="checkbox" id="brand1" name="brand1" value="brand1">
+                            <label for="brand1">Brand 1</label><br>
+                            <input type="checkbox" id="brand2" name="brand2" value="brand2">
+                            <label for="brand2">Brand 2</label><br>
+                            <input type="checkbox" id="brand3" name="brand3" value="brand3">
+                            <label for="brand3">Brand 3</label><br>
+
+                            <h3>Country</h3>
+                            <input type="checkbox" id="country1" name="country1" value="country3">
+                            <label for="brand1">Egypt</label><br>
+                            <input type="checkbox" id="country2" name="country2" value="country3">
+                            <label for="brand2">Palastine</label><br>
+                            <input type="checkbox" id="country3" name="country3" value="country3">
+                            <label for="brand3">Syria</label><br>
+                        </div>
+
+                    </form>
+
+                    <br>
+                </div>
+
+    <div class="container">
+        <h1>Search Results</h1>
+        <div id="search-results">
+            <?php
+            // Connect to the database
+            include 'dp.php';
+
+            // Check if the search button is clicked
+            if(isset($_GET['search'])) {
+                // Get the search query from the user
+                $search_query = $_GET['search'];
+
+                // Check if the connection is successful
+                if(!$con) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+
+                // Construct the SQL query
+                $sql = "SELECT * FROM products WHERE name LIKE '%$search_query%'";
+
+                // Execute the query
+                $result = mysqli_query($con, $sql);
+
+                // Check if there are any results 
+                if(mysqli_num_rows($result) > 0) {
+                    // Display the results
+                    while($row = mysqli_fetch_assoc($result)) {
+                        echo "<p>" . $row['name'] . "</p>";
+                    }
+                } else {
+                    echo "No results found.";
+                }
+
+                // Close the database connection
+                mysqli_close($con);
+            }
+            ?>
+        </div>
+    </div>
+
+            </section>
+        </div>
+    </div>
+
+    
+
+    <!--search-banner-end--------------->
+
+</body>
+
+</html>

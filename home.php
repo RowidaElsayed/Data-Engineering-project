@@ -92,39 +92,17 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
                     
                     </li>
+                     <li>
+                        
+                        <a href="products.php">
+                            
+                            products
+                        
+                        </a>
+                    <li>
 
     
-                    <li>
-                        
-                        <a href="Contact Form HTML.html">
-                            
-                            Contact&nbsp;Us
-                        
-                        </a>
-                    
-                    </li>
-                    
-                    <li>
-                        
-                        <a href="Feedback Form HTML.html">
-                            
-                            Feedback
-                        
-                        </a>
-                    
-                    </li>
-                    
-                    <li>
-    
-                        <a href="About Us HTML.html">
-    
-                            About&nbsp;us
-    
-                        </a>
-    
-                    </li>
-    
-                    <li>
+                  
                     
                     </li>
     
@@ -189,36 +167,23 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
                 <img alt="bg" class="bg-1_rev" src="v.png" >
     
-    
                 <!--text------->
                 <div class="search-banner-text">
+                    <h1>Order Your Groceries,All you need </h1>
     
-                    <h1>
-                        
-                        Order Your Groceries,All you need
-                    
-                    </h1>
-    
-    
-                    <!--search-box------>
-                    <form action="" class="search-box">
-    
-                        <!--icon------>
-                        <i class="fas fa-search"></i>
-    
-                        <!--input----->
-                        <input type="text" class="search-input" placeholder="Search" name="search" size = "80px" required>
-    
-                        <!--btn------->
-                         <form class="d-flex" action="search_product.php">
 
-                        <input class="form-control me-2" type="search"placeholder="Search" aria-label="Search" name="search_data">
+                <form class="search-box" method="post" action="search_results.html">
 
-                        <input type="submit" value="Search" class="search-btn" name="search_data_product">
+                    <!--icon------>
+                    <i class="fas fa-search"></i>
 
-       
-    
-                    </form>
+                    <!--input----->
+                    <input type="text" class="search-input" placeholder="Search" name="search" size="80px" required>
+
+                    <!--btn------->
+                    <input name="submit" type="submit" class="search-btn" value="Search">
+
+                </form>
     
                     <br>
     
@@ -231,10 +196,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </a>
     
                     </h3>
-    
-                </div>
-    
-            </section>
+
     
             <!--search-banner-end--------------->
     

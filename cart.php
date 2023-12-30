@@ -269,6 +269,9 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
                     <a href="index.php?page=cart" class="cart">
     
                         <i class="fas fa-shopping-cart"></i>
+
+                        <img src="imgs/cart.png" style="width:20px;height:20px;">
+
     
     
                     </a>

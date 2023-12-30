@@ -1,6 +1,10 @@
 <?php
 // Include your database connection file
 include 'db.php';
+include_once 'functions.php';
+// Include functions and connect to the database using PDO MySQL
+$pdo = pdo_connect_mysql();
+$subtotal = 0.00;
 
 // If the user is logged in, get user_id from the session
 if (isset($_SESSION['user_id'])) {
@@ -113,21 +117,11 @@ if (isset($_POST['update']) && isset($_SESSION['cart'])) {
     header('location: index.php?page=cart');
     exit;
 }
-// Send the user to the place order page if they click the Place Order button, also the cart should not be empty
-if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $product_id => $quantity) {
-        $stmt = $pdo->prepare("INSERT INTO orders (order_time, pid, user_id) VALUES (NOW(), ?, ?)");
-        $stmt->execute([$product_id, $user_id]);
-    }
-    // Clear the cart
-    $_SESSION['cart'] = [];
-    header('Location: index.php?page=placeorder');
-    exit;
-}
 // Check the session variable for products in cart
 $products_in_cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
 $products = array();
 $subtotal = 0.00;
+
 // If there are products in cart
 if ($products_in_cart) {
     // There are products in the cart so we need to select those products from the database
@@ -148,8 +142,142 @@ foreach ($_SESSION['cart'] as $product_id => $quantity) {
     $stmt->execute([$quantity, $product_id]);
 }
 }
+// Send the user to the place order page if they click the Place Order button, also the cart should not be empty
+if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    
+    foreach ($_SESSION['cart'] as $product_id => $quantity) {
+        $stmt = $pdo->prepare("INSERT INTO orders (order_time, pid, user_id,sub_total) VALUES (NOW(), ?, ?,?)");
+        $stmt->execute([$product_id, $user_id,$subtotal]);
+    }
+    $_SESSION['sub_total'] = $subtotal;
+    // Clear the cart
+    $_SESSION['cart'] = [];
+    header('Location: index.php?page=paymentmethod');
+    exit;
+}
+
 ?>
 <?=template_header('Cart')?>
+<head>
+    
+        <meta charset="utf-8">
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!--==Title==================================-->
+        <title>
+    
+            RONO Grocery Store
+    
+        </title>
+    
+        <!--==Stylesheet=============================-->
+        <link rel="stylesheet" type="text/css" href="Home Page CSS.css">
+    
+        <!--==Fav-icon===============================-->
+        <link rel="shortcut icon" href="images/fav-icon.png"/>
+    
+        <!--==Using-Font-Awesome=====================-->
+        <script src="https://kit.fontawesome.com/5471644867.js" crossorigin="anonymous"></script>
+                
+       <link rel="shortcut icon" type="image/jpg" href="C:\Users\hp\Desktop\College\First Semester\Introduction To Web Technologies\Notepad ++ Files\Project\favicon.ico"/>
+    
+        </head>
+    
+        <body>
+    
+            <!--==Navigation================================-->
+            <nav class="navigation">
+    
+                <!--logo-------->
+                <a href="#" class="logo">
+    
+                    <span>RO</span>NO
+    
+                </a>
+    
+                <!--menu-btn---->
+                <input type="checkbox" class="menu-btn" id="menu-btn">
+    
+                <label for="menu-btn" class="menu-icon">
+    
+                    <span class="nav-icon"></span>
+    
+                </label>
+    
+                <!--menu-------->
+                <ul class="menu">
+    
+                    <li>
+                        <a href="index.php" class="active">
+                            
+                            Home
+    
+                        </a>
+                    
+                    </li>
+    
+                    <li>
+    
+                        <a href="products.php">
+    
+                            Products
+                        
+                        </a>
+                    
+                    </li>
+
+    
+                    <li>
+                    
+                    </li>
+    
+                    <li>
+                        
+                        <a href="signup.html">
+                                
+                            Sign&nbsp;up
+                            
+                        </a>
+                        
+                    </li>
+    
+                    
+                    <li>
+                        
+                        <a href="index.html">
+                            
+                            Login
+                        
+                        </a>
+                    <li>
+                    <li>
+                        <a href="logout.php">
+                            Logout
+                        
+                        </a>
+                    
+                    </li>
+    
+                    </ul>
+    
+                <!--right-nav-(cart-like)-->
+                <div class="right-nav">
+    
+                    
+                    <!--cart----->
+                    <a href="index.php?page=cart" class="cart">
+    
+                        <i class="fas fa-shopping-cart"></i>
+                        <img src="imgs/cart.png" style="width:20px;height:20px;">
+    
+    
+                    </a>
+    
+    
+                </div>
+    
+            </nav>
 
 <div class="cart content-wrapper">
     <head>
@@ -216,4 +344,5 @@ foreach ($_SESSION['cart'] as $product_id => $quantity) {
 </div>
 
 <?=template_footer()?>
+
 

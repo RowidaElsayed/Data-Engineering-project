@@ -13,10 +13,11 @@ if (isset($_SESSION["user_id"])) {
 }
 // Include functions and connect to the database using PDO MySQL
 $pdo = pdo_connect_mysql();
-// Get the 4 most recently added products
-$stmt = $pdo->prepare('SELECT * FROM products ORDER BY pid DESC LIMIT 6');
+$stmt = $pdo->prepare('SELECT * FROM products LIMIT 6');
 $stmt->execute();
-$recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$max_discount = 0;
+
 ?>
 <DOCTYPE html>
 
@@ -176,7 +177,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <input type="submit" class="search-btn" value="Search">
     
                     </form>
-    
+
                     <br>
     
     
@@ -245,6 +246,30 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <section id="popular-product">
             <!-- Heading -->
             <div class="product-heading">
+
+                <h3>Don't miss our sales</h3>
+            </div>
+            <!-- Product Container -->
+            <div class="product-container">
+   <!-- Product Boxes -->
+                <?php
+                foreach ($products as $product) {
+                    if ($product['discount'] >= $max_discount) {
+                ?>
+                        <div class="product-box">
+                            <a href="index.php?page=product&pid=<?=$product['pid']?>" class="product-link">
+                                <img src="imgs/<?=$product['img']?>" alt="<?=$product['name']?>" class="product-image">
+                                <span class="product-name"><?=$product['name']?></span>
+                                
+                            </a>
+                        </div>
+                <?php
+                    }
+                }
+                ?>
+            </section>
+  
+
                 <h3>Explore New Products</h3>
                 <span>View All</span>
             </div>
@@ -269,7 +294,7 @@ $recently_added_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </section>
 
 
-                
+
             <!--==Footer=============================================-->
             <footer>
                 <div class="footer-container">

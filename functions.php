@@ -2,10 +2,10 @@
 include 'db.php';
 function pdo_connect_mysql() {
     // Update the details below with your MySQL details
-    $DATABASE_HOST = 'localhost';
-    $DATABASE_USER = 'root';
-    $DATABASE_PASS = '';
-    $DATABASE_NAME = 'groceryw_project';
+    $DATABASE_HOST = 'fdb1033.awardspace.net';
+    $DATABASE_USER = '4419514_grocery';
+    $DATABASE_PASS = 'Rn@123456';
+    $DATABASE_NAME = '4419514_grocery';
     try {
     	return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
     } catch (PDOException $exception) {
@@ -13,6 +13,7 @@ function pdo_connect_mysql() {
     	exit('Failed to connect to database!');
     }
 }
+
 // Template header, feel free to customize this
 function template_header($title) {
 $num_items_in_cart = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;

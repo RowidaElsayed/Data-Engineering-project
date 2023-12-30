@@ -1,13 +1,8 @@
 <?php
-
-try {
-    $pdo = new PDO('mysql:host=localhost;dbname=groceryw_project', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-    exit;
-}
-
+// Include functions and connect to the database using PDO MySQL
+include_once 'functions.php';
+// Include functions and connect to the database using PDO MySQL
+$pdo = pdo_connect_mysql();
 if (isset($_GET['pid'])) {
     $stmt = $pdo->prepare('SELECT * FROM products WHERE pid = ?');
     $stmt->execute([$_GET['pid']]);
@@ -74,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .product img {
-        max-width: 100%;
+        max-width: 50%;
         height: auto;
         border-radius: 8px;
         margin-right: 20px;
@@ -154,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="content-wrapper">
     <div class="navigation">
         <a href="index.php">Home</a>
-        <a href="index.php?page=products">Products</a>
+        <a href="products.php?">Products</a>
     </div>
     <h1><?=$product['name']?></h1>
     <div class="product">

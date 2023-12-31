@@ -3,11 +3,12 @@
 include 'db.php';
 session_start();
 
-include 'functions.php';
+include_once 'functions.php';
 $pdo = pdo_connect_mysql();
 
 // Define $products as an empty array
 $products = array();
+
 
 // Search part
 if(isset($_GET['search'])) {
@@ -28,9 +29,9 @@ if(isset($_GET['search'])) {
     $stmt->execute();
 
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   
 }
 
-// Filter part
 
 ?>
 
@@ -140,7 +141,7 @@ if(isset($_GET['search'])) {
 
                 <span>
 
-                    2
+                    
 
                 </span>
 
@@ -195,45 +196,40 @@ if(isset($_GET['search'])) {
 
                 </a>
 
-            </h3>
+            </h3>     
 
         </div>
 
     </section>
 
     <!--search-banner-end--------------->
-<!--Filter-bar--------->
-
- <!--Filter-bar end--------------->
 <!--Display--->
-<!---search--->
 
     <div class="header"></div>
             <div class="container">
             <div class="container">
             <h1>Search Results</h1>
             <div id="search-results">
-                <?php if(is_array($products) && count($products) > 0): ?>
-                    <?php foreach ($products as $result): ?>
-                        <a href="index.php?page=search_results&pid=<?= $result['pid'] ?>" class="product">
-                            <img src="imgs/<?= $result['img'] ?>" alt="<?= $result['name'] ?>">
-                            <span class="name"><?= $result['name'] ?></span>
-                            <span class="brand_name"><?= $result['brand_name'] ?></span>
-               				<span class="brand_nationality"><?= $result['brand_nationality'] ?></span>
-                            <span class="price">
-                                L.E <?= $result['price'] ?>
-                                <?php if ($result['discount'] > 0): ?>
-                                    <span class="discount">L.E <?= $result['discount'] ?></span>
-                                <?php endif; ?>
-                            </span>
-
-                        </a>
-     				   <?php endforeach; ?>
-    					<?php else: ?>
-     					   <p>No results found.</p>
-   						 <?php endif; ?>
-					</div>
-<!--filter---->           
+            <?php if(is_array($products) && count($products) > 0): ?>
+            <div class="product-grid">
+                <?php foreach ($products as $result): ?>
+                    <a href="index.php?page=product&pid=<?= $result['pid'] ?>" class="product">
+                        <img src="imgs/<?= $result['img'] ?>" alt="<?= $result['name'] ?>">
+                        <span class="name"><?= $result['name'] ?></span>
+                        <span class="brand_name"><?= $result['brand_name'] ?></span>
+                        <span class="brand_nationality"><?= $result['brand_nationality'] ?></span>
+                        <span class="price">
+                            L.E <?= $result['price'] ?>
+                            <?php if ($result['discount'] > 0): ?>
+                                <span class="discount">L.E <?= $result['discount'] ?></span>
+                            <?php endif; ?>
+                        </span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p>No results found.</p>
+        <?php endif; ?>
 
 <style>
     body {

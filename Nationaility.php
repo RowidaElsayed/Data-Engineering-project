@@ -1,46 +1,119 @@
+<?php
+
+include 'functions.php';
+
+$pdo = pdo_connect_mysql();
+
+// Prepare the SQL statement to fetch all products
+$stmt = $pdo->prepare('SELECT * FROM products WHERE brand_nationality="Egypt"');
+$stmt->execute();
+
+// Fetch all products into the $products variable
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+<?=template_header('Products')?>
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        background-color: #fff; 
+        background-color: #f4f4f4;
         margin: 0;
         padding: 0;
     }
 
-    .placeorder {
-        max-width: 800px;
-        margin: 20px auto;
+    .content-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
         padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        text-align: center;
-        animation: fadeIn 1s ease-in;
     }
 
     h1 {
-        color: #28a745;
-        font-size: 2em;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    p {
-        font-size: 1.2em;
         color: #333;
-        line-height: 1.6;
-        margin: 0 20px;
+        text-align: center;
     }
 
-    .content-wrapper {
+    .products {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 20px auto;
     }
 
-    @keyframes fadeIn {
-        0% {opacity: 0;}
-        100% {opacity: 1;}
+    .product {
+        flex: 1 1 calc(20% - 10px);
+        margin: 10px;
+        padding: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.5s;
+        text-decoration: none;
+        color: #333;
+        background-color: #fff;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .product:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .product img {
+        width: 50%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .product .name {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+
+    .product .price {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    .product .discount {
+        color: #e44d26;
+        margin-left: 5px;
+        font-size: 1.1em;
+    }
+    
+         .product .brand_name {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+    
+         .product .brand_nationality {
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .buttons a {
+        text-decoration: none;
+        padding: 10px 20px;
+        color: white;
+        background-color: green;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        font-size: 1em;
+        margin: 0 10px;
+    }
+
+    .buttons a:hover {
+        background-color: white;
     }
 </style>
 <head>
@@ -111,7 +184,6 @@
                         </a>
                     
                     </li>
-
                     <li>
     
                         <a href="Nationaility.php">
@@ -121,6 +193,8 @@
                         </a>
                     
                     </li>
+
+    
                     <li>
                     
                     </li>
@@ -153,32 +227,40 @@
                     </li>
     
                     </ul>
-    
-                <!--right-nav-(cart-like)-->
-                <div class="right-nav">
+                     <div class="right-nav">
     
                     
                     <!--cart----->
                     <a href="index.php?page=cart" class="cart">
     
                         <i class="fas fa-shopping-cart"></i>
-                        <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" style="width:30px;height:30px;">
-
+    
     
                     </a>
     
     
                 </div>
+
     
             </nav>
 
 <div class="content-wrapper">
-    <div class="placeorder">
-        <h1>Your Order Has Been Placed</h1>
-        <p>Thank you for ordering with us! We'll contact you by email with your order details.</p>
-    </div>
-    
+  <h1>100% Egyptian Products</h1>
+  <div class="products">
+    <?php foreach ($products as $product): ?>
+      <a href="index.php?page=product&pid=<?= $product['pid'] ?>" class="product">
+        <img src="imgs/<?= $product['img'] ?>" alt="<?= $product['name'] ?>">
+        <span class="name"><?= $product['name'] ?></span>
+        <span class="brand_name"><?= $product['brand_name'] ?></span>
+        <span class="brand_nationality"><?= $product['brand_nationality'] ?></span>
+        <span class="price">
+          L.E <?= $product['price'] ?>
+          <?php if ($product['discount'] > 0): ?>
+            <span class="discount">L.E <?= $product['discount'] ?></span>
+          <?php endif; ?>
+        </span>
+      </a>
+    <?php endforeach; ?>
+  </div>
 </div>
-
-                
-                
+<?=template_footer()?>

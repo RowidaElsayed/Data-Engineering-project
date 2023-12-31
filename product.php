@@ -146,12 +146,135 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         background-color: #e6f7ff;
     }
 </style>
+<head>
+    
+        <meta charset="utf-8">
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!--==Title==================================-->
+        <title>
+    
+            RONO Grocery Store
+    
+        </title>
+    
+        <!--==Stylesheet=============================-->
+        <link rel="stylesheet" type="text/css" href="Home Page CSS.css">
+    
+        <!--==Fav-icon===============================-->
+        <link rel="shortcut icon" href="images/fav-icon.png"/>
+    
+        <!--==Using-Font-Awesome=====================-->
+        <script src="https://kit.fontawesome.com/5471644867.js" crossorigin="anonymous"></script>
+                
+       <link rel="shortcut icon" type="image/jpg" href="C:\Users\hp\Desktop\College\First Semester\Introduction To Web Technologies\Notepad ++ Files\Project\favicon.ico"/>
+    
+        </head>
+    
+        <body>
+    
+            <!--==Navigation================================-->
+            <nav class="navigation">
+    
+                <!--logo-------->
+                <a href="#" class="logo">
+    
+                    <span>RO</span>NO
+    
+                </a>
+    
+                <!--menu-btn---->
+                <input type="checkbox" class="menu-btn" id="menu-btn">
+    
+                <label for="menu-btn" class="menu-icon">
+    
+                    <span class="nav-icon"></span>
+    
+                </label>
+    
+                <!--menu-------->
+                <ul class="menu">
+    
+                    <li>
+                        <a href="index.php" class="active">
+                            
+                            Home
+    
+                        </a>
+                    
+                    </li>
+    
+                    <li>
+    
+                        <a href="products.php">
+    
+                            Products
+                        
+                        </a>
+                    
+                    </li>
+                    <li>
+    
+                        <a href="Nationaility.php">
+    
+                            Egyptain Products
+                        
+                        </a>
+                    
+                    </li>
+
+    
+                    <li>
+                    
+                    </li>
+    
+                    <li>
+                        
+                        <a href="signup.html">
+                                
+                            Sign&nbsp;up
+                            
+                        </a>
+                        
+                    </li>
+    
+                    
+                    <li>
+                        
+                        <a href="index.html">
+                            
+                            Login
+                        
+                        </a>
+                    <li>
+                    <li>
+                        <a href="logout.php">
+                            Logout
+                        
+                        </a>
+                    
+                    </li>
+    
+                    </ul>
+                     <div class="right-nav">
+    
+                    
+                    <!--cart----->
+                    <a href="index.php?page=cart" class="cart">
+    
+                        <i class="fas fa-shopping-cart"></i>
+    
+    
+                    </a>
+    
+    
+                </div>
+
+    
+            </nav>
 
 <div class="content-wrapper">
-    <div class="navigation">
-        <a href="index.php">Home</a>
-        <a href="products.php?">Products</a>
-    </div>
     <h1><?=$product['name']?></h1>
       <!--no of users-------->
     <div class='row'>

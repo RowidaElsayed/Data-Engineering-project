@@ -91,7 +91,15 @@ $max_discount = 0;
                         </a>
                     
                     </li>
-
+                     <li>
+    
+                        <a href="Nationaility.php">
+    
+                            Egyptain Products
+                        
+                        </a>
+                    
+                    </li>
     
                     <li>
                     
@@ -134,7 +142,7 @@ $max_discount = 0;
                     <a href="index.php?page=cart" class="cart">
     
                         <i class="fas fa-shopping-cart"></i>
-                        <img src="imgs/cart.png" style="width:30px;height:30px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" style="width:30px;height:30px;">
     
     
                     </a>
@@ -179,9 +187,21 @@ $max_discount = 0;
                     </form>
 
                     <br>
-    
+     			 <!--filter-box------>
+                  <form action="filter.php" class="filter-box">
+                  <input type="submit" class="filter-btn" style="
+                    background-color: #90EE90; /* Green background */
+                    color: white; /* White text */
+                    border: none; /* Remove default border */
+                    padding: 10px 20px; /* Adjust padding as needed */
+                    text-align: center; /* Center text */
+                    border-radius: 5px; /* Rounded corners */
+                    cursor: pointer; /* Hand cursor on hover */
+                  " value="Apply filters here">
+                </form>
     
                 </div>
+ 
     
             </section>
     
@@ -246,7 +266,6 @@ $max_discount = 0;
             <section id="popular-product">
             <!-- Heading -->
             <div class="product-heading">
-
                 <h3>Don't miss our sales</h3>
             </div>
             <!-- Product Container -->
@@ -269,32 +288,6 @@ $max_discount = 0;
                 ?>
             </section>
   
-
-                <h3>Explore New Products</h3>
-                <span>View All</span>
-            </div>
-            <!-- Product Container -->
-            <div class="product-container">
-                <!-- Product Boxes -->
-                <?php foreach ($recently_added_products as $product): ?>
-                    <div class="product-box">
-                        <a href="index.php?page=product&pid=<?=$product['pid']?>" class="product-link">
-                            <img src="imgs/<?=$product['img']?>" alt="<?=$product['name']?>" class="product-image">
-                            <span class="product-name"><?=$product['name']?></span>
-                            <span class="product-price">
-                                L.E <?=$product['price']?>
-                                <?php if ($product['discount'] > 0): ?>
-                                    <span class="discount-price">L.E <?=$product['discount']?></span>
-                                <?php endif; ?>
-                            </span>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </section>
-
-
-
             <!--==Footer=============================================-->
             <footer>
                 <div class="footer-container">

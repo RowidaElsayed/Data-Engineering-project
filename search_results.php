@@ -87,14 +87,22 @@ if(isset($_GET['search'])) {
 
             <li>
 
-                <a href="#category">
+                <a href="products.php">
 
-                    Categories
+                    Products
 
                 </a>
 
             </li>
-
+            <li>
+    
+                 <a href="Nationaility.php">
+    
+                      Egyptain Products
+                        
+                  </a>
+                    
+             </li>
 
             <li>
 
@@ -139,11 +147,6 @@ if(isset($_GET['search'])) {
                 <i class="fas fa-shopping-cart"></i>
                 <img src="https://cdn-icons-png.flaticon.com/512/1413/1413908.png" style="width:30px;height:30px;">
 
-                <span>
-
-                    
-
-                </span>
 
             </a>
 

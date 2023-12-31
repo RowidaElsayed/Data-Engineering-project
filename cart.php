@@ -149,7 +149,7 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
         $stmt = $pdo->prepare("INSERT INTO orders (order_time, pid, user_id,sub_total) VALUES (NOW(), ?, ?,?)");
         $stmt->execute([$product_id, $user_id,$subtotal]);
     }
-   $transaction_id = $pdo->lastInsertId();
+    $transaction_id = $pdo->lastInsertId();
 // Store the transaction ID in the session
     $_SESSION['transaction_id'] = $transaction_id;
     $_SESSION['sub_total'] = $subtotal;
@@ -229,6 +229,15 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
                         </a>
                     
                     </li>
+                    <li>
+    
+                        <a href="Nationaility.php">
+    
+                            Egyptain Products
+                        
+                        </a>
+                    
+                    </li>
 
     
                     <li>
@@ -272,9 +281,6 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
                     <a href="index.php?page=cart" class="cart">
     
                         <i class="fas fa-shopping-cart"></i>
-
-                        <img src="imgs/cart.png" style="width:20px;height:20px;">
-
     
     
                     </a>

@@ -19,7 +19,7 @@
                 $insert_query->bind_param("ss", $email, $password);
 
                 if ($insert_query->execute()) {
-                    echo '<p>Sign-up successful! Please <a href="index.html">login</a>.</p>';
+                   header("Location:index.html");
                 } else {
                     echo '<p>Database error. Please try again later.</p>';
                 }

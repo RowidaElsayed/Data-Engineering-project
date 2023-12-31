@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirect to the home page or dashboard
         header('Location: index.php'); 
     } else {
-        echo "Login failed. Invalid email or password.";
+            header('Location: signup.html'); 
     }
 }
 

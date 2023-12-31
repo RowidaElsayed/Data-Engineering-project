@@ -2,6 +2,7 @@
 session_start();
 include_once 'functions.php';
 $pdo = pdo_connect_mysql();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Fetch values from $_POST
     $transaction_id = $_SESSION['transaction_id'];
@@ -98,6 +99,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </a>
                     
                     </li>
+                    <li>
+    
+                        <a href="Nationaility.php">
+    
+                            Egyptain Products
+                        
+                        </a>
+                    
+                    </li>
 
     
                     <li>
@@ -185,7 +195,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
   <h1>Choose Payment Method</h1>
-
   <form action="" method="post">
     <input type="hidden" name="transaction_id">
 

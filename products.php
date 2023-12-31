@@ -8,7 +8,7 @@ $pdo = pdo_connect_mysql();
 $num_products_on_each_page = 8;
 // The current page - in the URL, will appear as index.php?page=products&p=1, index.php?page=products&p=2, etc...
 $current_page = isset($_GET['p']) && is_numeric($_GET['p']) ? (int)$_GET['p'] : 1;
-// Select products ordered by the date added
+// Select products  
 $stmt = $pdo->prepare('SELECT * FROM products ORDER BY pid DESC LIMIT ?,?');
 // bindValue will allow us to use an integer in the SQL statement, which we need to use for the LIMIT clause
 $stmt->bindValue(1, ($current_page - 1) * $num_products_on_each_page, PDO::PARAM_INT);
@@ -20,9 +20,8 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $total_products = $pdo->query('SELECT * FROM products')->rowCount(); 
 ?>
 
+
 <?=template_header('Products')?>
-
-
 <style>
     body {
         font-family: 'Arial', sans-serif;
@@ -194,6 +193,15 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
                         </a>
                     
                     </li>
+                    <li>
+    
+                        <a href="Nationaility.php">
+    
+                            Egyptain Products
+                        
+                        </a>
+                    
+                    </li>
 
     
                     <li>
@@ -228,21 +236,13 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
                     </li>
     
                     </ul>
-
                      <div class="right-nav">
-
     
-                <!--right-nav-(cart-like)-->
-                <div class="right-nav">
- 
                     
                     <!--cart----->
                     <a href="index.php?page=cart" class="cart">
     
                         <i class="fas fa-shopping-cart"></i>
-
-                        <img src="imgs/cart.png" style="width:20px;height:20px;">
-
     
     
                     </a>

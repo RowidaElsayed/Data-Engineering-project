@@ -4,10 +4,11 @@ include_once 'functions.php';
 // Include functions and connect to the database using PDO MySQL
 $pdo = pdo_connect_mysql();
 if (isset($_GET['pid'])) {
+        
     $stmt = $pdo->prepare('SELECT * FROM products WHERE pid = ?');
     $stmt->execute([$_GET['pid']]);
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        
     if (!$product) {
         exit('Product does not exist!');
     }
@@ -152,6 +153,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="products.php?">Products</a>
     </div>
     <h1><?=$product['name']?></h1>
+    <div class='row'>
+            <?php
+        include 'db.php';
+
+        $pdo = pdo_connect_mysql();
+
+        $pid = $_GET['pid'];
+
+        // Prepare the SQL statement
+        $total_purchases_sql = "SELECT COUNT(user_id) AS total_purchases FROM orders WHERE pid = $pid";
+        $result = $pdo->query($total_purchases_sql);
+
+        // Fetch the result as an associative array
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        // Access the 'total_purchases' value from the array
+        $total_purchases = $row['total_purchases'];
+
+echo '<h2 style="font-size: 20px;">Total number of users that purchased the product: ' . $total_purchases . '</h2>';
+            ?>    
+    </div>
+
     <div class="product">
         <img src="imgs/<?=$product['img']?>" alt="<?=$product['name']?>">
         <div class="product-details">
@@ -161,11 +184,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <span class="discount">L.E <?=$product['discount']?></span>
                 <?php endif; ?>
             </span>
+        
             <form action="index.php?page=cart" method="post" class="quantity-form">
                 <input type="hidden" name="cart_id" value="YOUR_CART_ID_HERE">
                 <input type="number" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" placeholder="Quantity" required>
                 <input type="hidden" name="product_id" value="<?=$product['pid']?>">
                 <button type="submit" class="add-to-cart-btn">Add To Cart</button>
+                    
+
             </form>
         </div>
     </div>

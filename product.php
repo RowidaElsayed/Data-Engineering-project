@@ -1,42 +1,226 @@
 <?php
-// Check to make sure the id parameter is specified in the URL
-if (isset($_GET['id'])) {
-    // Prepare statement and execute, prevents SQL injection
-    $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
-    $stmt->execute([$_GET['id']]);
-    // Fetch the product from the database and return the result as an Array
+// Include functions and connect to the database using PDO MySQL
+include_once 'functions.php';
+// Include functions and connect to the database using PDO MySQL
+$pdo = pdo_connect_mysql();
+if (isset($_GET['pid'])) {
+        
+    $stmt = $pdo->prepare('SELECT * FROM products WHERE pid = ?');
+    $stmt->execute([$_GET['pid']]);
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Check if the product exists (array is not empty)
+        
     if (!$product) {
-        // Simple error to display if the id for the product doesn't exists (array is empty)
         exit('Product does not exist!');
     }
 } else {
-    // Simple error to display if the id wasn't specified
     exit('Product does not exist!');
 }
-?>
-<?=template_header('Product')?>
 
-<div class="product content-wrapper">
-    <img src="imgs/<?=$product['img']?>" width="500" height="500" alt="<?=$product['name']?>">
-    <div>
-        <h1 class="name"><?=$product['name']?></h1>
-        <span class="price">
-            &dollar;<?=$product['Price']?>
-            <?php if ($product['rrp'] > 0): ?>
-            <span class="rrp">&dollar;<?=$product['rrp']?></span>
-            <?php endif; ?>
-        </span>
-        <form action="index.php?page=cart" method="post">
-            <input type="number" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" placeholder="Quantity" required>
-            <input type="hidden" name="product_id" value="<?=$product['id']?>">
-            <input type="submit" value="Add To Cart">
-        </form>
-        <div class="description">
-            <?=$product['description']?>
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user_id = $_SESSION['user_id'];
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Retrieve the product price and image
+    $stmt = $pdo->prepare('SELECT price, img FROM products WHERE pid = ?');
+    $stmt->execute([$product_id]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $price = $result['price'];
+    $img = $result['img'];
+
+    
+
+    if ($result) {
+        header('Location: index.php?page=cart'); // Redirect to the cart page or any other desired page
+        exit;
+    } else {
+        $error = $stmt->errorInfo();
+        echo "Error: " . $error[2];
+    }
+}
+?>
+<?=template_header('Product Details')?>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .content-wrapper {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+    .product {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .product img {
+        max-width: 50%;
+        height: auto;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+
+    .product-details {
+        flex: 1;
+    }
+
+    .product-details h1 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details .price {
+        font-size: 1.2em;
+        color: #e44d26;
+        margin-bottom: 15px;
+    }
+
+    .product-details .discount {
+        text-decoration: line-through;
+        color: #777;
+        margin-left: 10px;
+    }
+
+    .quantity-form {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .quantity-form input[type="number"] {
+        width: 60px;
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .add-to-cart-btn {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: #218838;
+    }
+
+    .navigation {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .navigation a {
+        text-decoration: none;
+        color: #007bff;
+        margin: 0 10px;
+        font-weight: bold;
+        font-size: 1.1em;
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .navigation a:hover {
+        background-color: #e6f7ff;
+    }
+</style>
+
+<div class="content-wrapper">
+    <div class="navigation">
+        <a href="index.php">Home</a>
+        <a href="products.php?">Products</a>
+    </div>
+    <h1><?=$product['name']?></h1>
+      <!--no of users-------->
+    <div class='row'>
+            <?php
+        include 'db.php';
+
+        $pdo = pdo_connect_mysql();
+
+        $pid = $_GET['pid'];
+
+        // Prepare the SQL statement
+        $total_purchases_sql = "SELECT COUNT(user_id) AS total_purchases FROM orders WHERE pid = $pid";
+        $result = $pdo->query($total_purchases_sql);
+
+        // Fetch the result as an associative array
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        // Access the 'total_purchases' value from the array
+        $total_purchases = $row['total_purchases'];
+
+echo '<h2 style="font-size: 20px;">Total number of users that purchased the product: ' . $total_purchases . '</h2>';
+            ?>    
+    </div>
+
+  <!--no of users in last 24hr-------->
+    <div class='row'>
+            <?php
+        include 'db.php';
+
+        $pdo = pdo_connect_mysql();
+
+        $pid = $_GET['pid'];
+
+        // Prepare the SQL statement
+        $total_purchases_sql_24hrs = "SELECT COUNT(DISTINCT user_id) AS total_purchases_24hrs FROM orders WHERE pid = $pid AND order_time >= DATE_SUB(NOW(), INTERVAL 1 DAY);
+; ";
+        $result = $pdo->query($total_purchases_sql_24hrs);
+
+        // Fetch the result as an associative array
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        // Access the 'total_purchases' value from the array
+        $total_purchases_24hrs = $row['total_purchases_24hrs'];
+
+echo '<h2 style="font-size: 20px;">Total number of users that purchased the productin last 24 hrs: ' . $total_purchases_24hrs . '</h2>';
+            ?>    
+    </div>
+
+    <div class="product">
+        <img src="imgs/<?=$product['img']?>" alt="<?=$product['name']?>">
+        <div class="product-details">
+            <span class="price">
+                L.E <?=$product['price']?>
+                <?php if ($product['discount'] > 0): ?>
+                    <span class="discount">L.E <?=$product['discount']?></span>
+                <?php endif; ?>
+            </span>
+        
+            <form action="index.php?page=cart" method="post" class="quantity-form">
+                <input type="hidden" name="cart_id" value="YOUR_CART_ID_HERE">
+                <input type="number" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" placeholder="Quantity" required>
+                <input type="hidden" name="product_id" value="<?=$product['pid']?>">
+                <button type="submit" class="add-to-cart-btn">Add To Cart</button>
+                    
+
+            </form>
         </div>
     </div>
 </div>
 
 <?=template_footer()?>
+

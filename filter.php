@@ -1,3 +1,4 @@
+
 <?php
 // Connect to the database
 include 'db.php';
@@ -345,3 +346,4 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </body>
 
 </html>
+

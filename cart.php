@@ -149,6 +149,9 @@ if (isset($_POST['placeorder']) && isset($_SESSION['cart']) && !empty($_SESSION[
         $stmt = $pdo->prepare("INSERT INTO orders (order_time, pid, user_id,sub_total) VALUES (NOW(), ?, ?,?)");
         $stmt->execute([$product_id, $user_id,$subtotal]);
     }
+   $transaction_id = $pdo->lastInsertId();
+// Store the transaction ID in the session
+    $_SESSION['transaction_id'] = $transaction_id;
     $_SESSION['sub_total'] = $subtotal;
     // Clear the cart
     $_SESSION['cart'] = [];

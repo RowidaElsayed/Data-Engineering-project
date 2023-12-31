@@ -153,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="products.php?">Products</a>
     </div>
     <h1><?=$product['name']?></h1>
+      <!--no of users-------->
     <div class='row'>
             <?php
         include 'db.php';
@@ -172,6 +173,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $total_purchases = $row['total_purchases'];
 
 echo '<h2 style="font-size: 20px;">Total number of users that purchased the product: ' . $total_purchases . '</h2>';
+            ?>    
+    </div>
+
+  <!--no of users in last 24hr-------->
+    <div class='row'>
+            <?php
+        include 'db.php';
+
+        $pdo = pdo_connect_mysql();
+
+        $pid = $_GET['pid'];
+
+        // Prepare the SQL statement
+        $total_purchases_sql_24hrs = "SELECT COUNT(DISTINCT user_id) AS total_purchases_24hrs FROM orders WHERE pid = $pid AND order_time >= DATE_SUB(NOW(), INTERVAL 1 DAY);
+; ";
+        $result = $pdo->query($total_purchases_sql_24hrs);
+
+        // Fetch the result as an associative array
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+
+        // Access the 'total_purchases' value from the array
+        $total_purchases_24hrs = $row['total_purchases_24hrs'];
+
+echo '<h2 style="font-size: 20px;">Total number of users that purchased the productin last 24 hrs: ' . $total_purchases_24hrs . '</h2>';
             ?>    
     </div>
 
